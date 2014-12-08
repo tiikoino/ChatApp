@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript">
+      var socket = new WebSocket("ws://localhost:8080/ChatApp/chatWebSocketEndpoint");
+      socket.onmessage = function(event){
+        document.getElementById("messages").innerHTML+=event.data+"<br>";
+      };
+      
+      function sendMessage() {
+        var messageField = document.getElementById("message");
+        socket.send(messageField.value);
+        messageField.value = "";
+      }
+    </script>
+  </head>
+  <body>
+    <h2>ChatApp</h2>
+    Message: 
+    <input type="text" id="message" name="message" />
+    <input type="button" onclick="sendMessage();" value="Send"/>
+    <h2>Received Messages</h2>
+    <div id="messages"></div>
+  </body>
+</html>
